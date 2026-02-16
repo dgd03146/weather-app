@@ -15,19 +15,20 @@ export function HourlyForecastSection({ lat, lon }: HourlyForecastSectionProps) 
   const activeIndex = findCurrentSlotIndex(items.map((item) => item.dt))
 
   return (
-    <motion.div
+    <motion.section
+      aria-label="시간별 예보"
       className="glass mt-6 rounded-2xl p-4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 }}
     >
-      <h2 className="mb-4 text-sm font-medium text-slate-400">오늘</h2>
+      <h2 className="mb-4 text-sm font-medium text-slate-400">시간별 예보</h2>
       <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
         {items.map((item, index) => (
           <HourlyCard key={item.dt} item={item} isActive={index === activeIndex} />
         ))}
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
 
