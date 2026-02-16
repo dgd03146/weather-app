@@ -1,4 +1,4 @@
-export { getCurrentWeather, getForecast } from './api'
+export { getCurrentWeather, getForecast, weatherQueries } from './api'
 export {
   currentWeatherSchema,
   forecastSchema,
