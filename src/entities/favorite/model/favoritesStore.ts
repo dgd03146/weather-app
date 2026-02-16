@@ -11,7 +11,7 @@ interface FavoritesState {
 }
 
 export const useFavoritesStore = create<FavoritesState>()(
-  persist(() => ({ favorites: [] }), {
+  persist(() => ({ favorites: [] as FavoriteItem[] }), {
     name: 'favorites',
     version: 1,
     storage: createJSONStorage(() => localStorage),
