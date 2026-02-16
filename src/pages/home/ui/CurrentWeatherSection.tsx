@@ -3,6 +3,7 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { MapPin, Wind, Droplets, Cloud } from 'lucide-react'
 import { motion, type Variants } from 'motion/react'
 import { weatherQueries } from '@/entities/weather'
+import { geocodeQueries } from '@/entities/location'
 import { formatTemp, getWeatherIconUrl } from '@/shared/lib'
 
 interface CurrentWeatherSectionProps {
@@ -22,10 +23,12 @@ const item: Variants = {
 
 export function CurrentWeatherSection({ lat, lon }: CurrentWeatherSectionProps) {
   const { data } = useSuspenseQuery(weatherQueries.current(lat, lon))
+  const { data: locationName } = useSuspenseQuery(geocodeQueries.reverseName(lat, lon))
   const weather = data.weather[0]
 
   return (
-    <motion.div
+    <motion.section
+      aria-label="현재 날씨"
       className="flex flex-col items-center gap-4 py-6"
       variants={container}
       initial="hidden"
@@ -33,7 +36,7 @@ export function CurrentWeatherSection({ lat, lon }: CurrentWeatherSectionProps) 
     >
       <motion.div variants={item} className="flex items-center gap-1.5">
         <MapPin className="h-4 w-4 text-violet-400" />
-        <p className="text-sm font-medium text-slate-300">{data.name}</p>
+        <p className="text-sm font-medium text-slate-300">{locationName ?? data.name}</p>
       </motion.div>
 
       <motion.div variants={item} className="relative">
@@ -65,7 +68,7 @@ export function CurrentWeatherSection({ lat, lon }: CurrentWeatherSectionProps) 
         <StatCard icon={<Droplets className="h-5 w-5 text-blue-400" />} label="습도" value={`${data.main.humidity}%`} />
         <StatCard icon={<Cloud className="h-5 w-5 text-indigo-400" />} label="구름" value={`${data.clouds.all}%`} />
       </motion.div>
-    </motion.div>
+    </motion.section>
   )
 }
 

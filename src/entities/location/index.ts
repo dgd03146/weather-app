@@ -1,2 +1,3 @@
 export { searchDistricts, parseDistrict } from './lib'
-export type { Location, Coordinates } from './model'
+export { geocodeDistrict, reverseGeocode, geocodeQueries } from './api'
+export type { Coordinates } from './model'
