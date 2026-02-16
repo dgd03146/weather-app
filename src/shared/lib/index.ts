@@ -1,0 +1,1 @@
+export { getCurrentPosition } from './geolocation'
