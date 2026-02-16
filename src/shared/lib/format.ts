@@ -2,15 +2,6 @@ export function formatTemp(temp: number) {
   return `${Math.round(temp)}°`
 }
 
-export function formatTime(timestamp: number, timezone: number) {
-  const date = new Date((timestamp + timezone) * 1000)
-  return date.toLocaleTimeString('ko-KR', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-    timeZone: 'UTC',
-  })
-}
 
 export function formatHour(dt: number) {
   const date = new Date(dt * 1000)
