@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { MapPin, Wind, Droplets, Cloud } from 'lucide-react'
 import { motion, type Variants } from 'motion/react'
 import { weatherQueries } from '@/entities/weather'
@@ -9,6 +9,7 @@ import { formatTemp, getWeatherIconUrl } from '@/shared/lib'
 interface CurrentWeatherSectionProps {
   lat: number
   lon: number
+  displayName?: string
 }
 
 const container: Variants = {
@@ -21,10 +22,11 @@ const item: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 }
 
-export function CurrentWeatherSection({ lat, lon }: CurrentWeatherSectionProps) {
+export function CurrentWeatherSection({ lat, lon, displayName }: CurrentWeatherSectionProps) {
   const { data } = useSuspenseQuery(weatherQueries.current(lat, lon))
-  const { data: locationName } = useSuspenseQuery(geocodeQueries.reverseName(lat, lon))
+  const { data: reverseName } = useQuery(geocodeQueries.reverseName(lat, lon))
   const weather = data.weather[0]
+  const locationName = displayName ?? reverseName ?? data.name
 
   return (
     <motion.section
@@ -36,7 +38,7 @@ export function CurrentWeatherSection({ lat, lon }: CurrentWeatherSectionProps) 
     >
       <motion.div variants={item} className="flex items-center gap-1.5">
         <MapPin className="h-4 w-4 text-violet-400" />
-        <p className="text-sm font-medium text-slate-300">{locationName ?? data.name}</p>
+        <p className="text-sm font-medium text-slate-300">{locationName}</p>
       </motion.div>
 
       <motion.div variants={item} className="relative">

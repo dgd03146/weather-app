@@ -16,7 +16,11 @@ export function WeatherContent() {
         </div>
       )}
       <AsyncBoundary pendingFallback={<CurrentWeatherSkeleton />}>
-        <CurrentWeatherSection lat={geo.coords.lat} lon={geo.coords.lon} />
+        <CurrentWeatherSection
+          lat={geo.coords.lat}
+          lon={geo.coords.lon}
+          displayName={geo.displayName}
+        />
       </AsyncBoundary>
       <AsyncBoundary pendingFallback={<HourlyForecastSkeleton />}>
         <HourlyForecastSection lat={geo.coords.lat} lon={geo.coords.lon} />
