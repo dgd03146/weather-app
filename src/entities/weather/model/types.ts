@@ -21,7 +21,7 @@ export const currentWeatherSchema = z.object({
     lon: z.number(),
     lat: z.number(),
   }),
-  weather: z.array(weatherConditionSchema),
+  weather: z.array(weatherConditionSchema).nonempty(),
   main: mainSchema,
   wind: z.object({
     speed: z.number(),
@@ -43,7 +43,7 @@ export const currentWeatherSchema = z.object({
 const forecastItemSchema = z.object({
   dt: z.number(),
   main: mainSchema,
-  weather: z.array(weatherConditionSchema),
+  weather: z.array(weatherConditionSchema).nonempty(),
   wind: z.object({
     speed: z.number(),
     deg: z.number(),
