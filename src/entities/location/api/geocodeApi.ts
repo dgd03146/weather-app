@@ -1,6 +1,7 @@
 import * as z from 'zod'
 import { ENV } from '@/shared/config'
 import { ApiError } from '@/shared/api'
+import { buildGeocodeQueries } from '../lib'
 
 const { OPENWEATHER_API_KEY, OPENWEATHER_GEO_URL } = ENV
 
@@ -30,14 +31,7 @@ async function fetchJson(url: string): Promise<unknown> {
 export async function geocodeDistrict(
   district: string,
 ): Promise<{ lat: number; lon: number } | null> {
-  const parts = district.split('-')
-
-  const queries =
-    parts.length >= 3
-      ? [`${parts[2]},${parts[1]},KR`, `${parts[1]},${parts[0]},KR`]
-      : parts.length >= 2
-        ? [`${parts[1]},${parts[0]},KR`]
-        : [`${parts[0]},KR`]
+  const queries = buildGeocodeQueries(district)
 
   for (const q of queries) {
     const params = new URLSearchParams({

@@ -1,6 +1,9 @@
 import { queryOptions } from '@tanstack/react-query'
 import { geocodeDistrict, reverseGeocode } from './geocodeApi'
 
+const GEOCODE_GC_TIME_MS = 60 * 60 * 1000
+const REVERSE_STALE_TIME_MS = 30 * 60 * 1000
+
 function roundCoord(n: number) {
   return Math.round(n * 1000) / 1000
 }
@@ -11,13 +14,13 @@ export const geocodeQueries = {
       queryKey: ['geocode', 'district', district],
       queryFn: () => geocodeDistrict(district),
       staleTime: Infinity,
-      gcTime: 1000 * 60 * 60,
+      gcTime: GEOCODE_GC_TIME_MS,
     }),
   reverseName: (lat: number, lon: number) =>
     queryOptions({
       queryKey: ['geocode', 'reverse', roundCoord(lat), roundCoord(lon)],
       queryFn: () => reverseGeocode(lat, lon),
-      staleTime: 1000 * 60 * 30,
-      gcTime: 1000 * 60 * 60,
+      staleTime: REVERSE_STALE_TIME_MS,
+      gcTime: GEOCODE_GC_TIME_MS,
     }),
 }

@@ -3,14 +3,17 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import type { ReactNode } from 'react'
 import { ApiError } from '@/shared/api'
 
+const DEFAULT_STALE_TIME_MS = 5 * 60 * 1000
+const MAX_RETRY_COUNT = 1
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: (failureCount, error) => {
         if (error instanceof ApiError && error.isRateLimit) return false
-        return failureCount < 1
+        return failureCount < MAX_RETRY_COUNT
       },
-      staleTime: 1000 * 60 * 5,
+      staleTime: DEFAULT_STALE_TIME_MS,
       refetchOnWindowFocus: false,
     },
   },
