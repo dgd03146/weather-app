@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { useClickOutside, useListNavigation } from '@/shared/hooks'
+import { useClickOutside, useListNavigation } from '@/shared/lib'
 import { useDistrictSearch } from '../model'
 import { useSelectDistrict } from '../api'
 import { SearchInput } from './SearchInput'

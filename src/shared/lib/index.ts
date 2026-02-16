@@ -1,3 +1,5 @@
 export type { Coordinates } from './types'
-export { getCurrentPosition, geolocationQuery, type GeoResult } from './geolocation'
+export { getCurrentPosition, type GeoResult } from './geolocation'
 export { formatTemp, formatHour, getWeatherIconUrl, findCurrentSlotIndex } from './format'
+export { useClickOutside } from './useClickOutside'
+export { useListNavigation } from './useListNavigation'
