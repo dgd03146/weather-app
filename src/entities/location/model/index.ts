@@ -1,1 +1,1 @@
-export type { Location, Coordinates } from './types'
+export type { Coordinates } from './types'

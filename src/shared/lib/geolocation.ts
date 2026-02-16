@@ -1,5 +1,5 @@
 import { queryOptions } from '@tanstack/react-query'
-import type { Coordinates } from '@/entities/location'
+import type { Coordinates } from './types'
 
 const SEOUL: Coordinates = { lat: 37.5665, lon: 126.978 }
 
