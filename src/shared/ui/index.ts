@@ -1,5 +1,4 @@
 export { ErrorBoundary } from './ErrorBoundary'
 export { AsyncBoundary } from './AsyncBoundary'
-export { WeatherSkeleton } from './WeatherSkeleton'
 export { AppErrorFallback } from './AppErrorFallback'
 export { RouteErrorFallback } from './RouteErrorFallback'
