@@ -10,7 +10,7 @@ export function WeatherContent() {
 
   return (
     <>
-      {geo.isFallback && (
+      {geo.source === 'fallback' && (
         <div className="mb-4 glass rounded-2xl px-4 py-3 text-sm text-amber-200">
           위치 권한이 거부되어 서울 날씨를 표시합니다.
         </div>

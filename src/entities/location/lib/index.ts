@@ -1,1 +1,1 @@
-export { searchDistricts, parseDistrict } from './searchDistricts'
+export { searchDistricts, parseDistrict, buildGeocodeQueries } from './searchDistricts'

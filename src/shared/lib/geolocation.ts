@@ -2,23 +2,28 @@ import { queryOptions } from '@tanstack/react-query'
 import type { Coordinates } from './types'
 
 const SEOUL: Coordinates = { lat: 37.5665, lon: 126.978 }
+const GEOLOCATION_STALE_TIME_MS = 5 * 60 * 1000
+const GEOLOCATION_GC_TIME_MS = 10 * 60 * 1000
+const GPS_TIMEOUT_MS = 15_000
+const GPS_MAX_AGE_MS = 600_000
 
 export interface GeoResult {
   coords: Coordinates
-  isFallback: boolean
+  source: 'gps' | 'search' | 'fallback'
+  displayName?: string
 }
 
 export const geolocationQuery = queryOptions({
   queryKey: ['geolocation'],
   queryFn: getCurrentPosition,
-  staleTime: 5 * 60 * 1000,
-  gcTime: 10 * 60 * 1000,
+  staleTime: GEOLOCATION_STALE_TIME_MS,
+  gcTime: GEOLOCATION_GC_TIME_MS,
 })
 
 export function getCurrentPosition(): Promise<GeoResult> {
   return new Promise((resolve) => {
     if (!navigator.geolocation) {
-      resolve({ coords: SEOUL, isFallback: true })
+      resolve({ coords: SEOUL, source: 'fallback' })
       return
     }
 
@@ -29,16 +34,16 @@ export function getCurrentPosition(): Promise<GeoResult> {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           },
-          isFallback: false,
+          source: 'gps',
         })
       },
       () => {
-        resolve({ coords: SEOUL, isFallback: true })
+        resolve({ coords: SEOUL, source: 'fallback' })
       },
       {
         enableHighAccuracy: false,
-        timeout: 15000,
-        maximumAge: 600000,
+        timeout: GPS_TIMEOUT_MS,
+        maximumAge: GPS_MAX_AGE_MS,
       },
     )
   })
