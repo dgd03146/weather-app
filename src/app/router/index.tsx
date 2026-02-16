@@ -1,16 +1,17 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { lazy } from 'react'
-
-const HomePage = lazy(() => import('@/pages/home/ui/HomePage'))
-const DetailPage = lazy(() => import('@/pages/detail/ui/DetailPage'))
+import HomePage from '@/pages/home/ui/HomePage'
+import DetailPage from '@/pages/detail/ui/DetailPage'
+import { RouteErrorFallback } from '@/shared/ui'
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
+    errorElement: <RouteErrorFallback />,
   },
   {
     path: '/detail/:lat/:lon',
     element: <DetailPage />,
+    errorElement: <RouteErrorFallback />,
   },
 ])
