@@ -1,7 +1,8 @@
-import { AsyncBoundary } from '@/shared/ui'
+import { WeatherSkeleton } from '@/widgets/weather-detail'
 import { SearchBar } from '@/features/search-location'
+import { AsyncBoundary } from '@/shared/ui'
 import { WeatherContent } from './WeatherContent'
-import { WeatherSkeleton } from './Skeletons'
+import { FavoritesSection } from './FavoritesSection'
 
 export default function HomePage() {
   return (
@@ -11,6 +12,7 @@ export default function HomePage() {
         <AsyncBoundary pendingFallback={<WeatherSkeleton />}>
           <WeatherContent />
         </AsyncBoundary>
+        <FavoritesSection />
       </div>
     </main>
   )

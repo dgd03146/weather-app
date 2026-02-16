@@ -17,7 +17,7 @@ const container: Variants = {
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 }
 
-const item: Variants = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 }
@@ -36,39 +36,41 @@ export function CurrentWeatherSection({ lat, lon, displayName }: CurrentWeatherS
       initial="hidden"
       animate="visible"
     >
-      <motion.div variants={item} className="flex items-center gap-1.5">
-        <MapPin className="h-4 w-4 text-violet-400" />
+      <motion.div variants={fadeInUp} className="flex items-center gap-1.5">
+        <MapPin aria-hidden="true" className="h-4 w-4 text-violet-400" />
         <p className="text-sm font-medium text-slate-300">{locationName}</p>
       </motion.div>
 
-      <motion.div variants={item} className="relative">
+      <motion.div variants={fadeInUp} className="relative">
         <div className="absolute inset-0 rounded-full bg-violet-500/20 blur-3xl" />
         <img
           src={getWeatherIconUrl(weather.icon)}
           alt={weather.description}
+          width={160}
+          height={160}
           className="relative h-40 w-40 drop-shadow-[0_8px_32px_rgba(124,58,237,0.3)]"
         />
       </motion.div>
 
-      <motion.div variants={item} className="flex flex-col items-center">
+      <motion.div variants={fadeInUp} className="flex flex-col items-center">
         <span className="text-xs font-medium tracking-wider text-slate-500">현재 기온</span>
         <p className="text-8xl font-extralight tracking-tighter">
           {formatTemp(data.main.temp)}
         </p>
       </motion.div>
 
-      <motion.p variants={item} className="text-lg capitalize text-slate-300">
+      <motion.p variants={fadeInUp} className="text-lg capitalize text-slate-300">
         {weather.description}
       </motion.p>
 
-      <motion.p variants={item} className="text-sm text-slate-500">
+      <motion.p variants={fadeInUp} className="text-sm text-slate-500">
         최고 {formatTemp(data.main.temp_max)} · 최저 {formatTemp(data.main.temp_min)}
       </motion.p>
 
-      <motion.div variants={item} className="mt-2 grid w-full grid-cols-3 gap-3">
-        <StatCard icon={<Wind className="h-5 w-5 text-violet-400" />} label="바람" value={`${data.wind.speed}m/s`} />
-        <StatCard icon={<Droplets className="h-5 w-5 text-blue-400" />} label="습도" value={`${data.main.humidity}%`} />
-        <StatCard icon={<Cloud className="h-5 w-5 text-indigo-400" />} label="구름" value={`${data.clouds.all}%`} />
+      <motion.div variants={fadeInUp} className="mt-2 grid w-full grid-cols-3 gap-3">
+        <StatCard icon={<Wind aria-hidden="true" className="h-5 w-5 text-violet-400" />} label="바람" value={`${data.wind.speed}m/s`} />
+        <StatCard icon={<Droplets aria-hidden="true" className="h-5 w-5 text-blue-400" />} label="습도" value={`${data.main.humidity}%`} />
+        <StatCard icon={<Cloud aria-hidden="true" className="h-5 w-5 text-indigo-400" />} label="구름" value={`${data.clouds.all}%`} />
       </motion.div>
     </motion.section>
   )

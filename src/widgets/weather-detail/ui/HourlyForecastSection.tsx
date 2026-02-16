@@ -4,6 +4,8 @@ import { weatherQueries } from '@/entities/weather'
 import type { ForecastItem } from '@/entities/weather'
 import { formatTemp, formatHour, getWeatherIconUrl, findCurrentSlotIndex } from '@/shared/lib'
 
+const HOURLY_DISPLAY_COUNT = 8
+
 interface HourlyForecastSectionProps {
   lat: number
   lon: number
@@ -11,7 +13,7 @@ interface HourlyForecastSectionProps {
 
 export function HourlyForecastSection({ lat, lon }: HourlyForecastSectionProps) {
   const { data: forecast } = useSuspenseQuery(weatherQueries.forecast(lat, lon))
-  const items = forecast.list.slice(0, 8)
+  const items = forecast.list.slice(0, HOURLY_DISPLAY_COUNT)
   const activeIndex = findCurrentSlotIndex(items.map((item) => item.dt))
 
   return (
@@ -49,6 +51,8 @@ function HourlyCard({ item, isActive }: { item: ForecastItem; isActive: boolean 
       <img
         src={getWeatherIconUrl(weather.icon)}
         alt={weather.description}
+        width={32}
+        height={32}
         className="h-8 w-8"
       />
       <span className={`text-sm font-semibold ${isActive ? 'text-white' : 'text-slate-200'}`}>

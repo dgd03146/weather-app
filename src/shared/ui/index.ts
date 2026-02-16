@@ -1,4 +1,5 @@
 export { ErrorBoundary } from './ErrorBoundary'
 export { AsyncBoundary } from './AsyncBoundary'
 export { AppErrorFallback } from './AppErrorFallback'
+export { SectionErrorFallback } from './SectionErrorFallback'
 export { RouteErrorFallback } from './RouteErrorFallback'
