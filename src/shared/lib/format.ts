@@ -1,10 +1,12 @@
+const MS_PER_SECOND = 1000
+
 export function formatTemp(temp: number) {
   return `${Math.round(temp)}°`
 }
 
 
 export function formatHour(dt: number) {
-  const date = new Date(dt * 1000)
+  const date = new Date(dt * MS_PER_SECOND)
   return `${date.getHours().toString().padStart(2, '0')}:00`
 }
 
@@ -13,7 +15,7 @@ export function getWeatherIconUrl(icon: string) {
 }
 
 export function findCurrentSlotIndex(timestamps: number[]) {
-  const now = Date.now() / 1000
+  const now = Date.now() / MS_PER_SECOND
   let idx = 0
   for (let i = 0; i < timestamps.length; i++) {
     if (timestamps[i] <= now) idx = i
