@@ -44,7 +44,7 @@ export function SearchBar() {
       />
       <SearchResults results={results} isOpen={isOpen} activeIndex={activeIndex} onSelect={select} />
       {isSelecting && (
-        <p className="mt-2 text-xs text-slate-400">날씨 정보를 불러오는 중...</p>
+        <p className="mt-2 text-xs text-slate-400">날씨 정보를 불러오는 중…</p>
       )}
       {error && <p className="mt-2 text-xs text-red-400">{error.message}</p>}
     </div>

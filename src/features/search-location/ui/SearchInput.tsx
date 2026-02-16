@@ -20,15 +20,18 @@ export function SearchInput({
 }: SearchInputProps) {
   return (
     <div className="relative">
-      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+      <Search aria-hidden="true" className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
       <input
         type="text"
+        name="location-search"
+        autoComplete="off"
+        aria-label="지역 검색"
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         onKeyDown={onKeyDown}
         onFocus={onFocus}
-        placeholder="시, 구, 동으로 검색"
-        className="w-full glass rounded-xl py-2.5 pl-10 pr-10 text-sm text-white placeholder-slate-500 outline-none focus:ring-1 focus:ring-violet-500/50"
+        placeholder="시, 구, 동으로 검색…"
+        className="w-full glass rounded-xl py-2.5 pl-10 pr-10 text-sm text-white placeholder-slate-500 outline-none focus-visible:ring-1 focus-visible:ring-violet-500/50"
       />
       {isSearchActive && (
         <button

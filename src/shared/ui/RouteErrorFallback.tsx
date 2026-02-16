@@ -1,4 +1,4 @@
-import { useRouteError, useNavigate } from 'react-router-dom'
+import { useRouteError, useNavigate, Link } from 'react-router-dom'
 import { useQueryErrorResetBoundary } from '@tanstack/react-query'
 import { ApiError } from '@/shared/api'
 
@@ -23,13 +23,12 @@ export function RouteErrorFallback() {
           <p className="text-slate-400 mb-6">
             요청하신 위치의 날씨 정보를 찾을 수 없습니다.
           </p>
-          <button
-            type="button"
-            onClick={() => navigate('/')}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          <Link
+            to="/"
+            className="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-violet-500/50"
           >
             홈으로 돌아가기
-          </button>
+          </Link>
         </div>
       </div>
     )
@@ -47,7 +46,7 @@ export function RouteErrorFallback() {
           <button
             type="button"
             onClick={handleRetry}
-            className="px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
+            className="px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-violet-500/50"
           >
             다시 시도
           </button>
@@ -69,7 +68,7 @@ export function RouteErrorFallback() {
         <button
           type="button"
           onClick={handleRetry}
-          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-violet-500/50"
         >
           다시 시도
         </button>
