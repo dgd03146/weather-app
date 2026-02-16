@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { geolocationQuery } from '@/shared/lib'
+import { geolocationQuery } from '@/shared/api'
 import { AsyncBoundary } from '@/shared/ui'
 import { CurrentWeatherSection } from './CurrentWeatherSection'
 import { HourlyForecastSection } from './HourlyForecastSection'

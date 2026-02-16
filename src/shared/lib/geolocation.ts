@@ -1,11 +1,5 @@
-import { queryOptions } from '@tanstack/react-query'
 import type { Coordinates } from './types'
-
-const SEOUL: Coordinates = { lat: 37.5665, lon: 126.978 }
-const GEOLOCATION_STALE_TIME_MS = 5 * 60 * 1000
-const GEOLOCATION_GC_TIME_MS = 10 * 60 * 1000
-const GPS_TIMEOUT_MS = 15_000
-const GPS_MAX_AGE_MS = 600_000
+import { FALLBACK_COORDS, GPS_TIMEOUT_MS, GPS_MAX_AGE_MS } from '@/shared/config'
 
 export interface GeoResult {
   coords: Coordinates
@@ -13,17 +7,10 @@ export interface GeoResult {
   displayName?: string
 }
 
-export const geolocationQuery = queryOptions({
-  queryKey: ['geolocation'],
-  queryFn: getCurrentPosition,
-  staleTime: GEOLOCATION_STALE_TIME_MS,
-  gcTime: GEOLOCATION_GC_TIME_MS,
-})
-
 export function getCurrentPosition(): Promise<GeoResult> {
   return new Promise((resolve) => {
     if (!navigator.geolocation) {
-      resolve({ coords: SEOUL, source: 'fallback' })
+      resolve({ coords: FALLBACK_COORDS, source: 'fallback' })
       return
     }
 
@@ -38,7 +25,7 @@ export function getCurrentPosition(): Promise<GeoResult> {
         })
       },
       () => {
-        resolve({ coords: SEOUL, source: 'fallback' })
+        resolve({ coords: FALLBACK_COORDS, source: 'fallback' })
       },
       {
         enableHighAccuracy: false,
